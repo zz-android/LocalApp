@@ -1,0 +1,200 @@
+package com.ruijie.localapp;
+
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.os.SystemClock;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
+//Android的四大组件，只有定义了，就必须去AndroidManifest.xml中注册一下！！！
+public class LocalService extends Service {
+
+    private final String TAG = "LocalService";
+    private LocationManager mLocationManager;
+    private LocalServiceThread localServiceThread;
+    private int k;
+
+    private static Integer UPDATE_FREQ = 1000;
+    private static Double MOVE_STEP = 0.00001;
+    private LocationBean locationBeanNow;//当前坐标
+    private List<LocationBean> locationBeanList = new ArrayList<LocationBean>();//要移动的坐标
+    private Integer gotoLocationTag;
+    //必须实现的方法
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.e(TAG, "onBind方法被调用");
+        return null;
+    }
+
+    //Service被创建时调用
+    @Override
+    public void onCreate() {
+        Log.e(TAG, "onCreate方法被调用");
+        locationBeanNow = new LocationBean(119.34030,26.02100);
+        gotoLocationTag = 0;
+        locationBeanList.add(new LocationBean(119.34030,26.02100));
+        locationBeanList.add(new LocationBean(119.34130,26.02100));
+        locationBeanList.add(new LocationBean(119.34130,26.01950));
+        locationBeanList.add(new LocationBean(119.34030,26.01950));
+
+        mLocationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        rmNetworkProvider();
+        setNewNetworkProvider();
+        super.onCreate();
+    }
+
+    //Service被启动时调用
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e(TAG, "onStartCommand方法被调用");
+        if(localServiceThread != null){
+            localServiceThread.interrupt();
+        }
+        k = 0;
+        localServiceThread = new LocalServiceThread();
+        localServiceThread.start();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    //Service被销毁时调用
+    @Override
+    public void onDestroy() {
+        Log.e(TAG, "onDestroy方法被调用");
+        if(localServiceThread != null) {
+            localServiceThread.interrupt();
+            localServiceThread = null;
+        }
+        super.onDestroy();
+    }
+
+    private void rmNetworkProvider(){
+        try {
+            String providerStr = LocationManager.GPS_PROVIDER;
+            if (mLocationManager.isProviderEnabled(providerStr)){
+                Log.d("test", "now remove NetworkProvider");
+//                locationManager.setTestProviderEnabled(providerStr,true);
+                mLocationManager.removeTestProvider(providerStr);
+
+                //获取可用的位置信息Provider.即passive,network,gps中的一个或几个
+                List<String> providerList=mLocationManager.getProviders(true);
+                for (Iterator<String> iterator = providerList.iterator(); iterator.hasNext();) {
+                    String provider = (String) iterator.next();
+                    Log.d("test","provider="+provider);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.d("test", "rmNetworkProvider error");
+        }
+    }
+    private void setNewNetworkProvider(){
+        String providerStr = LocationManager.GPS_PROVIDER;
+        try {
+            mLocationManager.addTestProvider(providerStr, false, false,
+                    false, false, false, false,
+                    false, 1, Criteria.ACCURACY_FINE);
+            Log.d("test","addTestProvider[network] success");
+//            locationManager.setTestProviderStatus("network", LocationProvider.AVAILABLE, null,
+//                    System.currentTimeMillis());
+        }catch (SecurityException e){
+            Log.e("test","setNewNetworkProvider error "+e);
+        }
+        if (!mLocationManager.isProviderEnabled(providerStr)){
+            Log.d("test", "now  setTestProviderEnabled[network]");
+            mLocationManager.setTestProviderEnabled(providerStr,true);
+        }
+    }
+
+
+
+
+    private void setNetworkLocation() {
+        //百度地图：26.0230909289,119.3518455973
+        //default location 30.5437233 104.0610342 成都长虹科技大厦
+        //随机位数
+        Random random =new Random();
+        int r1 = random.nextInt(999999999);
+        int r2 = random.nextInt(999999999);
+        double a1 = r1/100000000000000.0;
+        double a2 = r2/100000000000000.0;
+//119.34030,26.02030
+
+        LocationBean gotoLocation = locationBeanList.get(gotoLocationTag);
+
+        if(gotoLocation.getLongitude() > locationBeanNow.getLongitude()){
+            locationBeanNow.setLongitude(locationBeanNow.getLongitude() + MOVE_STEP + a1);
+        }else{
+            locationBeanNow.setLongitude(locationBeanNow.getLongitude() - MOVE_STEP - a1);
+        }
+
+        if(gotoLocation.getAltitude() > locationBeanNow.getAltitude()){
+            locationBeanNow.setAltitude(locationBeanNow.getAltitude() + MOVE_STEP + a2);
+        }else{
+            locationBeanNow.setAltitude(locationBeanNow.getAltitude() - MOVE_STEP - a2);
+        }
+
+        if (Math.abs(gotoLocation.getLongitude()-locationBeanNow.getLongitude()) < 5*MOVE_STEP
+                && Math.abs(gotoLocation.getAltitude() - locationBeanNow.getAltitude())< 5*MOVE_STEP){
+            gotoLocationTag++;
+            if(gotoLocationTag >= locationBeanList.size()){
+                gotoLocationTag = 0;
+            }
+            Log.e(TAG,"move to next point "+ gotoLocationTag);
+        }
+
+        Log.e(TAG,"set local "+locationBeanNow.getAltitude()+" "+locationBeanNow.getLongitude());
+
+        String providerStr = LocationManager.GPS_PROVIDER;
+        try {
+            mLocationManager.setTestProviderLocation(providerStr, generateLocation(locationBeanNow.getAltitude(),locationBeanNow.getLongitude()));
+        } catch (Exception e) {
+            Log.d(TAG, "setNetworkLocation error");
+            e.printStackTrace();
+        }
+    }
+    //generate a location
+    public Location generateLocation(double lat , double lng) {
+        Location loc = new Location("gps");
+        loc.setAccuracy(2.0F);
+        loc.setAltitude(lat);
+        loc.setBearing(1.0F);
+        Bundle bundle = new Bundle();
+        bundle.putInt("satellites", 7);
+        loc.setExtras(bundle);
+
+        loc.setLatitude(lat);
+        loc.setLongitude(lng);
+
+        loc.setTime(System.currentTimeMillis());
+        loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
+
+        return loc;
+    }
+
+    class LocalServiceThread extends Thread{
+        @Override
+        public void run(){
+            while(true){
+                try {
+                    Thread.sleep(UPDATE_FREQ);
+                    setNetworkLocation();
+                }catch (Exception e){
+                    Log.e(TAG,"e="+e);
+                    break;
+                }
+
+            }
+        };
+    }
+}

@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
     private LocationListenerImpl mLocationListenerImpl;
     private TextView longitudeTV;
     private TextView latitudeTV;
+    private Intent serviceIntent;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +39,11 @@ public class MainActivity extends Activity {
 
         initLocationManager(mContext);
 
+        serviceIntent = new Intent();
+        serviceIntent.setAction("com.ruijie.localapp.LocalService");
+        //Android 5.0之后，隐式调用是除了设置setAction()外，还需要设置setPackage()
+        serviceIntent.setPackage("com.ruijie.localapp");
 
-        rmNetworkProvider();
-        setNewNetworkProvider();
-
-        MyThread myThread = new MyThread();
-        myThread.start();
     }
     @Override
     protected void onDestroy() {
@@ -53,26 +53,15 @@ public class MainActivity extends Activity {
         }
     }
 
-    class MyThread extends Thread{
-        @Override
-        public void run(){
-            while(true){
-                try {
-                    Thread.sleep(100);
-                    setNetworkLocation();
-                }catch (Exception e){
-                    Log.e("test","e="+e);
-                }
-
-            }
-        };
-    }
-
     public void getLocationClick(View v){
         getLocation();
     }
-    public void setLocationClick(View v){
-        setNetworkLocation();
+
+    public void startServiceClick(View v){
+        startService(serviceIntent);
+    }
+    public void stopServiceClick(View v){
+        stopService(serviceIntent);
     }
 
     private void initLocationManager(Context context){
@@ -162,88 +151,8 @@ public class MainActivity extends Activity {
     }
 
 
-    private void rmNetworkProvider(){
-        try {
-            String providerStr = LocationManager.GPS_PROVIDER;
-            if (mLocationManager.isProviderEnabled(providerStr)){
-                Log.d("test", "now remove NetworkProvider");
-//                locationManager.setTestProviderEnabled(providerStr,true);
-                mLocationManager.removeTestProvider(providerStr);
-
-                //获取可用的位置信息Provider.即passive,network,gps中的一个或几个
-                List<String> providerList=mLocationManager.getProviders(true);
-                for (Iterator<String> iterator = providerList.iterator(); iterator.hasNext();) {
-                    String provider = (String) iterator.next();
-                    Log.d("test","provider="+provider);
-                }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            Log.d("test", "rmNetworkProvider error");
-        }
-    }
-    private void setNewNetworkProvider(){
-        String providerStr = LocationManager.GPS_PROVIDER;
-        try {
-            mLocationManager.addTestProvider(providerStr, false, false,
-                    false, false, false, false,
-                    false, 1, Criteria.ACCURACY_FINE);
-            Log.d("test","addTestProvider[network] success");
-//            locationManager.setTestProviderStatus("network", LocationProvider.AVAILABLE, null,
-//                    System.currentTimeMillis());
-        }catch (SecurityException e){
-            Log.e("test","setNewNetworkProvider error "+e);
-        }
-        if (!mLocationManager.isProviderEnabled(providerStr)){
-            Log.d("test", "now  setTestProviderEnabled[network]");
-            mLocationManager.setTestProviderEnabled(providerStr,true);
-        }
-    }
-
-    Random random =new Random(10);
-    int i = 0;
-    private void setNetworkLocation() {
-        //百度地图：26.0230909289,119.3518455973
-        //腾讯高德：26.0173409510,119.3453031778
-        //default location 30.5437233 104.0610342 成都长虹科技大厦
 
 
-        int r1 = random.nextInt(999999999);
-        int r2 = random.nextInt(999999999);
-        double a1 = r1/100000000000000.0;
-        double a2 = r2/100000000000000.0;
-        double lat = 26.02030  + a1+ 0.000001*i;//+ 0.000001
-        double lng = 119.34030 + a2+ 0.000001*i;
-        Log.e("test","local"+lat+" "+lng);
-        i++;
-        String providerStr = LocationManager.GPS_PROVIDER;
-        try {
-            mLocationManager.setTestProviderLocation(providerStr, generateLocation(lat,lng));
-        } catch (Exception e) {
-            Log.d("test", "setNetworkLocation error");
-            e.printStackTrace();
-        }
-    }
-    //generate a location
-    public Location generateLocation(double lat ,double lng) {
-        Location loc = new Location("gps");
-        loc.setAccuracy(2.0F);
-        loc.setAltitude(lat);
-        loc.setBearing(1.0F);
-        Bundle bundle = new Bundle();
-        bundle.putInt("satellites", 7);
-        loc.setExtras(bundle);
 
-        loc.setLatitude(lat);
-        loc.setLongitude(lng);
-
-        loc.setTime(System.currentTimeMillis());
-        loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
-
-//        if (Build.VERSION.SDK_INT >= 17) {
-//            loc.setElapsedRealtimeNanos(SystemClock.elapsedRealtimeNanos());
-//        }
-        return loc;
-    }
 
 }

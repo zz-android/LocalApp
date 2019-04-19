@@ -20,14 +20,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="获取位置"
-
         android:onClick="getLocationClick"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开启服务"
+        android:onClick="startServiceClick"
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="设置位置"
-
-        android:onClick="setLocationClick"
+        android:text="关闭服务"
+        android:onClick="stopServiceClick"
         />
 </LinearLayout>
