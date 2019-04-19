@@ -23,7 +23,7 @@ public class LocalService extends Service {
     private final String TAG = "LocalService";
     private LocationManager mLocationManager;
     private LocalServiceThread localServiceThread;
-    private int k;
+    private Random random =new Random();
 
     private static Integer UPDATE_FREQ = 1000;
     private static Double MOVE_STEP = 0.00001;
@@ -61,7 +61,6 @@ public class LocalService extends Service {
         if(localServiceThread != null){
             localServiceThread.interrupt();
         }
-        k = 0;
         localServiceThread = new LocalServiceThread();
         localServiceThread.start();
         return super.onStartCommand(intent, flags, startId);
@@ -123,7 +122,7 @@ public class LocalService extends Service {
         //百度地图：26.0230909289,119.3518455973
         //default location 30.5437233 104.0610342 成都长虹科技大厦
         //随机位数
-        Random random =new Random();
+
         int r1 = random.nextInt(999999999);
         int r2 = random.nextInt(999999999);
         double a1 = r1/100000000000000.0;
