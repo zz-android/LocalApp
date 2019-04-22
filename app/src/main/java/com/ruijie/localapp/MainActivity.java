@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         serviceIntent.setAction("com.ruijie.localapp.LocalService");
         //Android 5.0之后，隐式调用是除了设置setAction()外，还需要设置setPackage()
         serviceIntent.setPackage("com.ruijie.localapp");
-
+        startService(serviceIntent);
     }
     @Override
     protected void onDestroy() {

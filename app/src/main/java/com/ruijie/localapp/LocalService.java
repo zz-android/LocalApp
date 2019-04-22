@@ -8,6 +8,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
@@ -22,10 +23,18 @@ public class LocalService extends Service {
 
     private final String TAG = "LocalService";
     private LocationManager mLocationManager;
-    private LocalServiceThread localServiceThread;
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable(){
+        @Override
+        public void run() {
+            setNetworkLocation();
+
+            handler.postDelayed(this, 100);// 50ms后执行this，即runable
+        }
+    };
     private Random random =new Random();
 
-    private static Integer UPDATE_FREQ = 1000;
+    private static Integer UPDATE_FREQ = 100;
     private static Double MOVE_STEP = 0.00001;
     private LocationBean locationBeanNow;//当前坐标
     private List<LocationBean> locationBeanList = new ArrayList<LocationBean>();//要移动的坐标
@@ -41,12 +50,16 @@ public class LocalService extends Service {
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate方法被调用");
-        locationBeanNow = new LocationBean(119.34030,26.02100);
+//        locationBeanNow = new LocationBean(119.34030,26.02100);
+        locationBeanNow = new LocationBean(119.24251,26.06000);
         gotoLocationTag = 0;
-        locationBeanList.add(new LocationBean(119.34030,26.02100));
-        locationBeanList.add(new LocationBean(119.34130,26.02100));
-        locationBeanList.add(new LocationBean(119.34130,26.01950));
-        locationBeanList.add(new LocationBean(119.34030,26.01950));
+//        locationBeanList.add(new LocationBean(119.34030,26.02100));
+//        locationBeanList.add(new LocationBean(119.34130,26.02100));
+//        locationBeanList.add(new LocationBean(119.34130,26.01950));
+//        locationBeanList.add(new LocationBean(119.34030,26.01950));
+        locationBeanList.add(new LocationBean(119.24251,26.06000));
+        locationBeanList.add(new LocationBean(119.24527,26.05615));
+        locationBeanList.add(new LocationBean(119.264564,26.05635));
 
         mLocationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
         rmNetworkProvider();
@@ -58,11 +71,14 @@ public class LocalService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand方法被调用");
-        if(localServiceThread != null){
-            localServiceThread.interrupt();
-        }
-        localServiceThread = new LocalServiceThread();
-        localServiceThread.start();
+//        if(localServiceThread != null){
+//            localServiceThread.interrupt();
+//        }
+//        localServiceThread = new LocalServiceThread();
+//        localServiceThread.start();
+
+
+        handler.postDelayed(runnable, 100);// 打开定时器，50ms后执行runnable操作
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -70,10 +86,12 @@ public class LocalService extends Service {
     @Override
     public void onDestroy() {
         Log.e(TAG, "onDestroy方法被调用");
-        if(localServiceThread != null) {
-            localServiceThread.interrupt();
-            localServiceThread = null;
-        }
+
+//        if(localServiceThread != null) {
+//            localServiceThread.interrupt();
+//            localServiceThread = null;
+//        }
+        handler.removeCallbacks(runnable);
         super.onDestroy();
     }
 
