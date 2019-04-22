@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
     private LocationListenerImpl mLocationListenerImpl;
     private TextView longitudeTV;
     private TextView latitudeTV;
+    private TextView deviceIdTV;
     private Intent serviceIntent;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         longitudeTV = findViewById(R.id.longitude);
         latitudeTV = findViewById(R.id.latitude);
+        deviceIdTV = findViewById(R.id.deviceIdTV);
         mContext=this;
+
+        String deviceId = android.os.Build.SERIAL;
+        deviceIdTV.setText(deviceId);
 
         initLocationManager(mContext);
 
@@ -43,7 +48,7 @@ public class MainActivity extends Activity {
         serviceIntent.setAction("com.ruijie.localapp.LocalService");
         //Android 5.0之后，隐式调用是除了设置setAction()外，还需要设置setPackage()
         serviceIntent.setPackage("com.ruijie.localapp");
-        startService(serviceIntent);
+//        startService(serviceIntent);
     }
     @Override
     protected void onDestroy() {
@@ -62,6 +67,11 @@ public class MainActivity extends Activity {
     }
     public void stopServiceClick(View v){
         stopService(serviceIntent);
+    }
+    public void locationMgrClick(View v){
+        Intent intent = new Intent();
+        intent.setClass(this, LocationActivity.class);
+        startActivity(intent);
     }
 
     private void initLocationManager(Context context){
@@ -96,7 +106,7 @@ public class MainActivity extends Activity {
         }
         //注册位置监听
         mLocationListenerImpl=new LocationListenerImpl();
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListenerImpl);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1, mLocationListenerImpl);
     }
 
     private class LocationListenerImpl implements LocationListener{

@@ -16,23 +16,54 @@
         android:layout_height="wrap_content"
         android:text="latitude:"
         />
+    <TextView
+        android:id="@+id/deviceIdTV"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="获取位置"
         android:onClick="getLocationClick"
         />
-
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="移动过程每5秒获取一次，点击立即获取"
+        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="开启服务"
         android:onClick="startServiceClick"
         />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="开启服务服务后定位到龙岩"
+        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="关闭服务"
         android:onClick="stopServiceClick"
+        />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="只是暂时移动，如要恢复原来定位功能，重启手机"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="坐标管理"
+        android:onClick="locationMgrClick"
+        />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="开发中"
         />
 </LinearLayout>

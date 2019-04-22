@@ -51,15 +51,13 @@ public class LocalService extends Service {
     public void onCreate() {
         Log.e(TAG, "onCreate方法被调用");
 //        locationBeanNow = new LocationBean(119.34030,26.02100);
-        locationBeanNow = new LocationBean(119.24251,26.06000);
+        locationBeanNow = new LocationBean(117.03048,25.03544);
         gotoLocationTag = 0;
 //        locationBeanList.add(new LocationBean(119.34030,26.02100));
 //        locationBeanList.add(new LocationBean(119.34130,26.02100));
 //        locationBeanList.add(new LocationBean(119.34130,26.01950));
 //        locationBeanList.add(new LocationBean(119.34030,26.01950));
-        locationBeanList.add(new LocationBean(119.24251,26.06000));
-        locationBeanList.add(new LocationBean(119.24527,26.05615));
-        locationBeanList.add(new LocationBean(119.264564,26.05635));
+        locationBeanList.add(new LocationBean(117.03048,25.03544));
 
         mLocationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
         rmNetworkProvider();
