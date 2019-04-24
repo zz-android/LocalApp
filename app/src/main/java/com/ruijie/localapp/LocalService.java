@@ -29,12 +29,12 @@ public class LocalService extends Service {
         public void run() {
             setNetworkLocation();
 
-            handler.postDelayed(this, 100);// 50ms后执行this，即runable
+            handler.postDelayed(this, UPDATE_FREQ);// 50ms后执行this，即runable
         }
     };
     private Random random =new Random();
 
-    private static Integer UPDATE_FREQ = 100;
+    private static Integer UPDATE_FREQ = 300;
     private static Double MOVE_STEP = 0.00001;
     private LocationBean locationBeanNow;//当前坐标
     private List<LocationBean> locationBeanList = new ArrayList<LocationBean>();//要移动的坐标
@@ -51,13 +51,19 @@ public class LocalService extends Service {
     public void onCreate() {
         Log.e(TAG, "onCreate方法被调用");
 //        locationBeanNow = new LocationBean(119.34030,26.02100);
-        locationBeanNow = new LocationBean(117.03048,25.03544);
-        gotoLocationTag = 0;
+
 //        locationBeanList.add(new LocationBean(119.34030,26.02100));
 //        locationBeanList.add(new LocationBean(119.34130,26.02100));
 //        locationBeanList.add(new LocationBean(119.34130,26.01950));
 //        locationBeanList.add(new LocationBean(119.34030,26.01950));
-        locationBeanList.add(new LocationBean(117.03048,25.03544));
+        //locationBeanList.add(new LocationBean(117.03048,25.03544));
+        locationBeanList.add(new LocationBean(119.35139,26.04360));//花海
+        locationBeanList.add(new LocationBean(119.35139,26.04160));//花海雷凌子
+        locationBeanList.add(new LocationBean(119.347830,26.04445));//花海中途
+        locationBeanList.add(new LocationBean(119.34309,26.04650));//花海2
+
+        locationBeanNow = new LocationBean(locationBeanList.get(0).getLongitude(),locationBeanList.get(0).getAltitude());
+        gotoLocationTag = 0;
 
         mLocationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
         rmNetworkProvider();
@@ -76,7 +82,7 @@ public class LocalService extends Service {
 //        localServiceThread.start();
 
 
-        handler.postDelayed(runnable, 100);// 打开定时器，50ms后执行runnable操作
+        handler.postDelayed(runnable, UPDATE_FREQ);// 打开定时器，50ms后执行runnable操作
         return super.onStartCommand(intent, flags, startId);
     }
 

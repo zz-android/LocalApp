@@ -17,7 +17,7 @@
 			android:orientation="vertical"
 			>
 			<TextView
-				android:id="@+id/longitudeTV"
+				android:id="@+id/remarkTV"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:textSize="16dp"
@@ -35,7 +35,7 @@
 					android:layout_height="wrap_content"
 					android:textSize="16dp"
 					android:gravity="center_horizontal"
-					android:text="纬度"
+					android:text=""
 					android:layout_weight="1"
 					/>
 				<View
@@ -45,12 +45,12 @@
 					>
 				</View>
 				<TextView
-					android:id="@+id/remarkTV"
+					android:id="@+id/longitudeTV"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:textSize="16dp"
 					android:gravity="center_horizontal"
-					android:text="备注"
+					android:text=""
 					android:layout_weight="1"
 					/>
 			</LinearLayout>
@@ -62,45 +62,15 @@
 		android:background="#C5C5C5"
 		>
 	</View>
-	<TextView
-		android:id="@+id/countTV"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_weight="1"
-		android:textSize="16dp"
-		android:layout_gravity="center_vertical"
-		android:gravity="center_horizontal"
-		android:textColor="#545454"
-		android:text="0"
-		/>
-	<TextView
-		android:id="@+id/alreadyCountTV"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_weight="1"
-		android:textSize="16dp"
-		android:layout_gravity="center_vertical"
-		android:gravity="center_horizontal"
-		android:textColor="#4E9BE3"
-		android:text="0"
-		/>
-	<TextView
-		android:id="@+id/diffTV"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_weight="1"
-		android:textSize="16dp"
-		android:layout_gravity="center_vertical"
-		android:gravity="center_horizontal"
-		android:textColor="#E16444"
-		android:text="0"
-		/>
-<!--	<LinearLayout
+
+
+
+	<LinearLayout
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		android:layout_weight="1"
 		>
 
-	</LinearLayout>-->
+	</LinearLayout>
 </LinearLayout>

@@ -2,10 +2,12 @@ package com.ruijie.localapp;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ public class LocationBeanAdapter extends BaseAdapter {
         public TextView longitudeTV;
         public TextView altitudeTV;
         public TextView remarkTV;
+
 
 
 
@@ -60,12 +63,13 @@ public class LocationBeanAdapter extends BaseAdapter {
         convertView = layoutInflater.inflate(R.layout.listview_locationbean, null);
 
         //设置数据
-        info.longitudeTV = (TextView) convertView.findViewById(R.id.longitudeTV);
-        info.longitudeTV.setText("11");
-        info.altitudeTV = (TextView) convertView.findViewById(R.id.altitudeTV);
-        info.altitudeTV.setText("altitudeTV ");
-        info.remarkTV = (TextView) convertView.findViewById(R.id.remarkTV);
-        info.remarkTV.setText("remarkTV ");
+        info.longitudeTV = convertView.findViewById(R.id.longitudeTV);
+        info.longitudeTV.setText(data.get(position).getLongitude()+"");
+        info.altitudeTV = convertView.findViewById(R.id.altitudeTV);
+        info.altitudeTV.setText(data.get(position).getAltitude()+"");
+        info.remarkTV = convertView.findViewById(R.id.remarkTV);
+        info.remarkTV.setText(data.get(position).getRemark());
+
 
 
         return convertView;

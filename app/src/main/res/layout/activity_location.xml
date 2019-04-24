@@ -4,6 +4,37 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上"
+            android:onClick="upClick"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下"
+            android:onClick="downClick"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="左"
+            android:onClick="leftClick"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="右"
+            android:onClick="rightClick"
+            />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/latitude"
         android:layout_width="fill_parent"

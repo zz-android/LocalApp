@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
         serviceIntent.setAction("com.ruijie.localapp.LocalService");
         //Android 5.0之后，隐式调用是除了设置setAction()外，还需要设置setPackage()
         serviceIntent.setPackage("com.ruijie.localapp");
-//        startService(serviceIntent);
+        startService(serviceIntent);
     }
     @Override
     protected void onDestroy() {
@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
         }
         //注册位置监听
         mLocationListenerImpl=new LocationListenerImpl();
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1, mLocationListenerImpl);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListenerImpl);
     }
 
     private class LocationListenerImpl implements LocationListener{
