@@ -110,7 +110,7 @@ public class MainActivity extends Activity {
         }
         //注册位置监听
         mLocationListenerImpl=new LocationListenerImpl();
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, mLocationListenerImpl);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1, mLocationListenerImpl);
     }
 
     private class LocationListenerImpl implements LocationListener{
@@ -159,6 +159,7 @@ public class MainActivity extends Activity {
             double altitude=location.getAltitude();
             longitudeTV.setText(longitude+"");
             latitudeTV.setText(altitude+"");
+            Log.e("local","set local "+longitude+" "+altitude);
         } else {
             System.out.println("location==null");
         }

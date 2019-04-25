@@ -50,13 +50,7 @@ public class LocalService extends Service {
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate方法被调用");
-//        locationBeanNow = new LocationBean(119.34030,26.02100);
 
-//        locationBeanList.add(new LocationBean(119.34030,26.02100));
-//        locationBeanList.add(new LocationBean(119.34130,26.02100));
-//        locationBeanList.add(new LocationBean(119.34130,26.01950));
-//        locationBeanList.add(new LocationBean(119.34030,26.01950));
-        //locationBeanList.add(new LocationBean(117.03048,25.03544));
         locationBeanList.add(new LocationBean(119.35139,26.04360));//花海
         locationBeanList.add(new LocationBean(119.35139,26.04160));//花海雷凌子
         locationBeanList.add(new LocationBean(119.347830,26.04445));//花海中途
@@ -75,14 +69,7 @@ public class LocalService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand方法被调用");
-//        if(localServiceThread != null){
-//            localServiceThread.interrupt();
-//        }
-//        localServiceThread = new LocalServiceThread();
-//        localServiceThread.start();
-
-
-        handler.postDelayed(runnable, UPDATE_FREQ);// 打开定时器，50ms后执行runnable操作
+        handler.postDelayed(runnable, UPDATE_FREQ);// 打开定时器，执行runnable操作
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -96,6 +83,7 @@ public class LocalService extends Service {
 //            localServiceThread = null;
 //        }
         handler.removeCallbacks(runnable);
+        rmNetworkProvider();
         super.onDestroy();
     }
 
@@ -107,12 +95,6 @@ public class LocalService extends Service {
 //                locationManager.setTestProviderEnabled(providerStr,true);
                 mLocationManager.removeTestProvider(providerStr);
 
-                //获取可用的位置信息Provider.即passive,network,gps中的一个或几个
-                List<String> providerList=mLocationManager.getProviders(true);
-                for (Iterator<String> iterator = providerList.iterator(); iterator.hasNext();) {
-                    String provider = (String) iterator.next();
-                    Log.d("test","provider="+provider);
-                }
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -141,28 +123,28 @@ public class LocalService extends Service {
 
 
     private void setNetworkLocation() {
-        //百度地图：26.0230909289,119.3518455973
-        //default location 30.5437233 104.0610342 成都长虹科技大厦
-        //随机位数
-
         int r1 = random.nextInt(999999999);
         int r2 = random.nextInt(999999999);
         double a1 = r1/100000000000000.0;
         double a2 = r2/100000000000000.0;
-//119.34030,26.02030
 
         LocationBean gotoLocation = locationBeanList.get(gotoLocationTag);
 
+        double sin = getSin(gotoLocation.getLongitudeReal(),gotoLocation.getAltitudeReal()
+        ,locationBeanNow.getLongitudeReal(),locationBeanNow.getAltitudeReal());
+        double cos = getCos(gotoLocation.getLongitudeReal(),gotoLocation.getAltitudeReal()
+                ,locationBeanNow.getLongitudeReal(),locationBeanNow.getAltitudeReal());
+
         if(gotoLocation.getLongitude() > locationBeanNow.getLongitude()){
-            locationBeanNow.setLongitude(locationBeanNow.getLongitude() + MOVE_STEP + a1);
+            locationBeanNow.setLongitude(locationBeanNow.getLongitude() + MOVE_STEP*cos + a1);
         }else{
-            locationBeanNow.setLongitude(locationBeanNow.getLongitude() - MOVE_STEP - a1);
+            locationBeanNow.setLongitude(locationBeanNow.getLongitude() - MOVE_STEP*cos - a1);
         }
 
         if(gotoLocation.getAltitude() > locationBeanNow.getAltitude()){
-            locationBeanNow.setAltitude(locationBeanNow.getAltitude() + MOVE_STEP + a2);
+            locationBeanNow.setAltitude(locationBeanNow.getAltitude() + MOVE_STEP*sin + a2);
         }else{
-            locationBeanNow.setAltitude(locationBeanNow.getAltitude() - MOVE_STEP - a2);
+            locationBeanNow.setAltitude(locationBeanNow.getAltitude() - MOVE_STEP*sin - a2);
         }
 
         if (Math.abs(gotoLocation.getLongitude()-locationBeanNow.getLongitude()) < 5*MOVE_STEP
@@ -174,7 +156,8 @@ public class LocalService extends Service {
             Log.e(TAG,"move to next point "+ gotoLocationTag);
         }
 
-        Log.e(TAG,"set local "+locationBeanNow.getAltitude()+" "+locationBeanNow.getLongitude());
+        Log.e(TAG,"set local "+locationBeanNow.getAltitude()+" "+locationBeanNow.getLongitude()
+        +" sin="+sin+" cos="+cos);
 
         String providerStr = LocationManager.GPS_PROVIDER;
         try {
@@ -203,19 +186,21 @@ public class LocalService extends Service {
         return loc;
     }
 
-    class LocalServiceThread extends Thread{
-        @Override
-        public void run(){
-            while(true){
-                try {
-                    Thread.sleep(UPDATE_FREQ);
-                    setNetworkLocation();
-                }catch (Exception e){
-                    Log.e(TAG,"e="+e);
-                    break;
-                }
+    private double getSin(double x1,double y1,double x2,double y2){
+        double sin = 0.0;
+        double distance = Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+        if(distance>0){
+            sin = Math.abs((y2-y1)/distance);
+        }
+        return sin;
+    }
 
-            }
-        };
+    private double getCos(double x1,double y1,double x2,double y2){
+        double cos = 1.0;
+        double distance = Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+        if(distance>0){
+            cos = Math.abs((x2-x1)/distance);
+        }
+        return cos;
     }
 }
