@@ -59,6 +59,11 @@ public class LocationActivity extends Activity {
         locationBeanList.add(new LocationBean(0.0,0.0,"0 0 停止"));
         locationBeanList.add(new LocationBean(119.24866,26.09100,"映辉楼"));
         locationBeanList.add(new LocationBean(117.020438,25.05950,"龙岩"));
+        locationBeanList.add(new LocationBean(120.14879,30.25769,"杭州"));
+        locationBeanList.add(new LocationBean(116.34967,39.95718,"北京"));
+        locationBeanList.add(new LocationBean(106.48772,29.53881,"重庆"));
+        locationBeanList.add(new LocationBean(126.69108,45.76292,"哈尔滨"));
+        //locationBeanList.add(new LocationBean(117.020438,25.05950,"龙岩-"));
 
 
         locationBeanAdapter.notifyDataSetChanged();
