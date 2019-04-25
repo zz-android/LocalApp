@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
     private TextView latitudeTV;
     private TextView deviceIdTV;
     private Intent serviceIntent;
+    private Intent serviceIntentAuth;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,9 @@ public class MainActivity extends Activity {
         //Android 5.0之后，隐式调用是除了设置setAction()外，还需要设置setPackage()
         serviceIntent.setPackage("com.ruijie.localapp");
         startService(serviceIntent);
+
+        serviceIntentAuth = new Intent(this,AuthService.class);
+        startService(serviceIntentAuth);
     }
     @Override
     protected void onDestroy() {

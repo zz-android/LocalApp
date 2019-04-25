@@ -27,7 +27,11 @@
                 <action android:name="com.ruijie.localapp.LocalService"/>
             </intent-filter>
         </service>
-
+        <service android:name=".AuthService">
+            <intent-filter>
+                <action android:name="com.ruijie.localapp.AuthService"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

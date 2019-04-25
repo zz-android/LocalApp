@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class LocationBeanAdapter extends BaseAdapter {
@@ -64,13 +65,17 @@ public class LocationBeanAdapter extends BaseAdapter {
 
         //设置数据
         info.longitudeTV = convertView.findViewById(R.id.longitudeTV);
-        info.longitudeTV.setText(data.get(position).getLongitude()+"");
         info.altitudeTV = convertView.findViewById(R.id.altitudeTV);
-        info.altitudeTV.setText(data.get(position).getAltitude()+"");
         info.remarkTV = convertView.findViewById(R.id.remarkTV);
+
+        BigDecimal altitudeB = new BigDecimal(data.get(position).getAltitude());
+        double altitude = altitudeB.setScale(5,BigDecimal.ROUND_HALF_UP).doubleValue();
+        BigDecimal longitudeB = new BigDecimal(data.get(position).getLongitude());
+        double longitude = longitudeB.setScale(5,BigDecimal.ROUND_HALF_UP).doubleValue();
+
+        info.longitudeTV.setText(longitude+"");
+        info.altitudeTV.setText(altitude+"");
         info.remarkTV.setText(data.get(position).getRemark());
-
-
 
         return convertView;
     }
