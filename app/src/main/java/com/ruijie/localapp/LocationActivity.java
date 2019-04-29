@@ -53,16 +53,30 @@ public class LocationActivity extends Activity {
 
         locationBeanList.add(new LocationBean(119.35139,26.04160,"花海雷"));
         locationBeanList.add(new LocationBean(119.34389,26.04670,"花海木"));
-        locationBeanList.add(new LocationBean(119.34529,26.04472,"花海陶"));
+        locationBeanList.add(new LocationBean(119.34579,26.04472,"花海陶"));
         locationBeanList.add(new LocationBean(119.34290,26.02215,"吉若1"));
         locationBeanList.add(new LocationBean(119.34405,26.02265,"吉若2"));
+        locationBeanList.add(new LocationBean(119.29542,26.08603,"三方"));
+        locationBeanList.add(new LocationBean(119.29440,26.08523,"三方陶1"));
+        locationBeanList.add(new LocationBean(119.29010,26.08740,"三方陶2"));
+        locationBeanList.add(new LocationBean(119.26404,26.04180,"仓山万达"));
+        locationBeanList.add(new LocationBean(119.30550,26.03733,"师大"));
+        locationBeanList.add(new LocationBean(119.30270,26.03283,"师大2"));
         locationBeanList.add(new LocationBean(0.0,0.0,"0 0 停止"));
         locationBeanList.add(new LocationBean(119.24866,26.09100,"映辉楼"));
+
         locationBeanList.add(new LocationBean(117.020438,25.05950,"龙岩"));
+        locationBeanList.add(new LocationBean(117.64486,26.27405,"三明"));
+        locationBeanList.add(new LocationBean(118.18219,26.64074,"南平"));
+        locationBeanList.add(new LocationBean(117.72303,24.46459,"漳州"));
+        locationBeanList.add(new LocationBean(119.58540,26.67444,"宁德"));
+        locationBeanList.add(new LocationBean(119.12509,25.32325,"莆田"));
+
         locationBeanList.add(new LocationBean(120.14879,30.25769,"杭州"));
         locationBeanList.add(new LocationBean(116.34967,39.95718,"北京"));
         locationBeanList.add(new LocationBean(106.48772,29.53881,"重庆"));
         locationBeanList.add(new LocationBean(126.69108,45.76292,"哈尔滨"));
+        locationBeanList.add(new LocationBean(108.97154,34.29408,"西安"));
         //locationBeanList.add(new LocationBean(117.020438,25.05950,"龙岩-"));
 
 

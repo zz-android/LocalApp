@@ -34,7 +34,7 @@ public class LocalService extends Service {
     };
     private Random random =new Random();
 
-    private static Integer UPDATE_FREQ = 300;
+    private static Integer UPDATE_FREQ = 350;
     private static Double MOVE_STEP = 0.00001;
     private LocationBean locationBeanNow;//当前坐标
     private List<LocationBean> locationBeanList = new ArrayList<LocationBean>();//要移动的坐标
@@ -51,10 +51,19 @@ public class LocalService extends Service {
     public void onCreate() {
         Log.e(TAG, "onCreate方法被调用");
 
-        locationBeanList.add(new LocationBean(119.35139,26.04360));//花海
-        locationBeanList.add(new LocationBean(119.35139,26.04160));//花海雷凌子
-        locationBeanList.add(new LocationBean(119.347830,26.04445));//花海中途
-        locationBeanList.add(new LocationBean(119.34309,26.04650));//花海2
+//        locationBeanList.add(new LocationBean(119.35139,26.04360));//花海
+//        locationBeanList.add(new LocationBean(119.35139,26.04160));//花海雷凌子
+//        locationBeanList.add(new LocationBean(119.347830,26.04445));//花海中途
+//        locationBeanList.add(new LocationBean(119.34309,26.04650));//花海2
+
+        locationBeanList.add(new LocationBean(119.29540,26.08623));//三方
+        locationBeanList.add(new LocationBean(119.29040,26.08472));//三方
+        locationBeanList.add(new LocationBean(119.29040,26.08872));//三方
+        locationBeanList.add(new LocationBean(119.29460,26.08872));//三方
+
+//        locationBeanList.add(new LocationBean(119.30270,26.03283));
+//        LocationBean.staticLongitude = locationBeanList.get(0).getLongitude();
+//        LocationBean.staticAltitude = locationBeanList.get(0).getAltitude();
 
         locationBeanNow = new LocationBean(locationBeanList.get(0).getLongitude(),locationBeanList.get(0).getAltitude());
         gotoLocationTag = 0;
