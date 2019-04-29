@@ -31,6 +31,13 @@
                 android:text="111.22222"
                 android:textSize="8dp"
                 />
+            <TextView
+                android:id="@+id/infoTV"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="z"
+                android:textSize="8dp"
+                />
         </LinearLayout>
         <Button
             android:id="@+id/goNorthBtn"
@@ -54,11 +61,11 @@
         android:orientation="horizontal"
         >
         <Button
-            android:id="@+id/goEastBtn"
+            android:id="@+id/goWestBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="东"
+            android:text="西"
             />
         <Button
             android:id="@+id/goSouthBtn"
@@ -68,11 +75,11 @@
             android:text="南"
             />
         <Button
-            android:id="@+id/goWestBtn"
+            android:id="@+id/goEastBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="西"
+            android:text="东"
             />
     </LinearLayout>
 <!--    <ImageView

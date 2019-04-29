@@ -41,13 +41,14 @@ public class FloatingImageDisplayService extends Service {
 
     private View displayView;
     private Button startOrMoveBtn,goNorthBtn,goEastBtn,goSouthBtn,goWestBtn;
-    private TextView longTV,latTV;
+    private TextView longTV,latTV,infoTV;
 
-    private boolean goEast = false;
-    private boolean goWest = false;
-    private boolean goNorth = false;
-    private boolean goSouth = false;
-
+//    private boolean goEast = false;
+//    private boolean goWest = false;
+//    private boolean goNorth = false;
+//    private boolean goSouth = false;
+    private int westEast = 0;
+    private int southNorth = 0;
 
     private Handler changeImageHandler;
 
@@ -110,6 +111,7 @@ public class FloatingImageDisplayService extends Service {
         goWestBtn = displayView.findViewById(R.id.goWestBtn);
         longTV = displayView.findViewById(R.id.longTV);
         latTV = displayView.findViewById(R.id.latTV);
+        infoTV = displayView.findViewById(R.id.infoTV);
 
         windowManager.addView(displayView, layoutParams);
         changeImageHandler.sendEmptyMessageDelayed(0, 1000);
@@ -119,54 +121,46 @@ public class FloatingImageDisplayService extends Service {
             public void onClick(View v) {
                 Log.e("test", "startOrMoveBtn 点击事件");
                 LocationBean.MOVEING = false;
-                goNorth = false;
-                goEast = false;
-                goSouth = false;
-                goWest = false;
+                westEast = 0;
+                southNorth = 0;
             }
         });
         goNorthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LocationBean.MOVEING = true;
-                goNorth = !goNorth;
-                goSouth = false;
-//                if(goNorth){
-//                    goNorthBtn .setBackgroundColor(Color.rgb(255, 0, 0));
-//                }
+                if(southNorth < 10){
+                    southNorth++;
+                }
+
             }
         });
         goSouthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LocationBean.MOVEING = true;
-                goNorth = false;
-                goSouth = !goSouth;
-//                if(goSouth){
-//                    goSouthBtn .setBackgroundColor(Color.rgb(255, 0, 0));
-//                }
+                if(southNorth > -10){
+                    southNorth--;
+                }
+
             }
         });
         goEastBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LocationBean.MOVEING = true;
-                goWest = false;
-                goEast = !goEast;
-//                if(goEast){
-//                    goEastBtn .setBackgroundColor(Color.rgb(255, 0, 0));
-//                }
+                if(westEast < 10){
+                    westEast++;
+                }
             }
         });
         goWestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LocationBean.MOVEING = true;
-                goWest = !goWest;
-                goEast = false;
-//                if(goWest){
-//                    goWestBtn.setBackgroundColor(Color.rgb(255, 0, 0));
-//                }
+                if(westEast > -10){
+                    westEast--;
+                }
             }
         });
     }
@@ -175,19 +169,19 @@ public class FloatingImageDisplayService extends Service {
         @Override
         public boolean handleMessage(Message msg) {
             if (msg.what == 0) {
-                if(goNorth){
-                    LocationBean.staticAltitude += LocationBean.MOVE_STEP/2;
+                if(southNorth != 0){
+                    LocationBean.staticAltitude += LocationBean.MOVE_STEP*southNorth/2;
                 }
-                if(goSouth){
-                    LocationBean.staticAltitude -= LocationBean.MOVE_STEP/2;
+//                if(southNorth < 0){
+//                    LocationBean.staticAltitude -= LocationBean.MOVE_STEP*southNorth/2;
+//                }
+                if(westEast != 0){
+                    LocationBean.staticLongitude += LocationBean.MOVE_STEP*westEast/2;
                 }
-                if(goWest){
-                    LocationBean.staticLongitude += LocationBean.MOVE_STEP/2;
-                }
-                if(goEast){
-                    LocationBean.staticLongitude -= LocationBean.MOVE_STEP/2;
-                }
-
+//                if(westEast < 0){
+//                    LocationBean.staticLongitude -= LocationBean.MOVE_STEP*westEast/2;
+//                }
+                infoTV.setText(westEast + " " +southNorth);
                 changeImageHandler.sendEmptyMessageDelayed(0, LocationBean.UPDATE_FREQ);
 
             }

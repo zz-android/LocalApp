@@ -28,11 +28,6 @@
         android:text="获取位置"
         android:onClick="getLocationClick"
         />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="移动过程每5秒获取一次，点击立即获取"
-        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,9 +56,5 @@
         android:text="坐标管理"
         android:onClick="locationMgrClick"
         />
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="开发中"
-        />
+
 </LinearLayout>

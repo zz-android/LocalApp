@@ -26,7 +26,7 @@ import java.util.Random;
 
 public class LocationActivity extends Activity {
     private Context mContext;
-    private Random random =new Random();
+
     private ListView locationBeanListView;
     private LocationBeanAdapter locationBeanAdapter;
     private List<LocationBean> locationBeanList;
@@ -88,32 +88,6 @@ public class LocationActivity extends Activity {
 
     }
 
-    private double getRandom(){
-        int r1 = random.nextInt(999999999);
-        double a1 = r1/100000000000000.0;
-        return a1;
-    }
-
-    public void upClick(View v){
-        LocationBean.staticAltitude = LocationBean.staticAltitude + 0.0004;
-        Toast.makeText(this, "upClick", Toast.LENGTH_SHORT).show();
-
-    }
-    public void downClick(View v){
-        LocationBean.staticAltitude = LocationBean.staticAltitude - 0.0004;
-        Toast.makeText(this, "downClick", Toast.LENGTH_SHORT).show();
-
-    }
-    public void leftClick(View v){
-        LocationBean.staticLongitude = LocationBean.staticLongitude - 0.0004;
-        Toast.makeText(this, "leftClick", Toast.LENGTH_SHORT).show();
-
-    }
-    public void rightClick(View v){
-        LocationBean.staticLongitude = LocationBean.staticLongitude + 0.0004;
-        Toast.makeText(this, "rightClick", Toast.LENGTH_SHORT).show();
-    }
-
     public void startFloatingDisplayClick(View view) {
 
 //        if (!Settings.canDrawOverlays(this)) {
@@ -124,6 +98,10 @@ public class LocationActivity extends Activity {
 //        }
         if (FloatingImageDisplayService.isStarted) {
             return;
+        }
+        if(LocationBean.staticLongitude == 0 && LocationBean.staticAltitude == 0){
+            LocationBean.staticLongitude = 119.29542;
+            LocationBean.staticAltitude = 26.08603;
         }
         startService(new Intent(mContext, FloatingImageDisplayService.class));
     }
