@@ -7,13 +7,17 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ruijie.localapp.dialog.FloatingImageDisplayService;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -108,5 +112,19 @@ public class LocationActivity extends Activity {
     public void rightClick(View v){
         LocationBean.staticLongitude = LocationBean.staticLongitude + 0.0004;
         Toast.makeText(this, "rightClick", Toast.LENGTH_SHORT).show();
+    }
+
+    public void startFloatingDisplayClick(View view) {
+
+//        if (!Settings.canDrawOverlays(this)) {
+//            Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT);
+//            startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 1);
+//        } else {
+//            startService(new Intent(MainActivity.this, FloatingImageDisplayService.class));
+//        }
+        if (FloatingImageDisplayService.isStarted) {
+            return;
+        }
+        startService(new Intent(mContext, FloatingImageDisplayService.class));
     }
 }

@@ -25,7 +25,7 @@ import java.util.Random;
 public class MainActivity extends Activity {
     private Context mContext;
     private LocationManager mLocationManager;
-    private LocationListenerImpl mLocationListenerImpl;
+//    private LocationListenerImpl mLocationListenerImpl;
     private TextView longitudeTV;
     private TextView latitudeTV;
     private TextView deviceIdTV;
@@ -57,9 +57,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mLocationManager!=null) {
-            mLocationManager.removeUpdates(mLocationListenerImpl);
-        }
+//        if (mLocationManager!=null) {
+//            mLocationManager.removeUpdates(mLocationListenerImpl);
+//        }
     }
 
     public void getLocationClick(View v){
@@ -109,38 +109,38 @@ public class MainActivity extends Activity {
             System.out.println("location==null");
         }
         //注册位置监听
-        mLocationListenerImpl=new LocationListenerImpl();
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1, mLocationListenerImpl);
+        //mLocationListenerImpl=new LocationListenerImpl();
+        //mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 1, mLocationListenerImpl);
     }
 
-    private class LocationListenerImpl implements LocationListener{
-        //当设备位置发生变化时调用该方法
-        @Override
-        public void onLocationChanged(Location location) {
-            if (location!=null) {
-                showLocation(location);
-            }
-        }
-
-        //当provider的状态发生变化时调用该方法.比如GPS从可用变为不可用.
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        //当provider被打开的瞬间调用该方法.比如用户打开GPS
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        //当provider被关闭的瞬间调用该方法.比如关闭打开GPS
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-
-    }
+//    private class LocationListenerImpl implements LocationListener{
+//        //当设备位置发生变化时调用该方法
+//        @Override
+//        public void onLocationChanged(Location location) {
+//            if (location!=null) {
+//                showLocation(location);
+//            }
+//        }
+//
+//        //当provider的状态发生变化时调用该方法.比如GPS从可用变为不可用.
+//        @Override
+//        public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//        }
+//
+//        //当provider被打开的瞬间调用该方法.比如用户打开GPS
+//        @Override
+//        public void onProviderEnabled(String provider) {
+//
+//        }
+//
+//        //当provider被关闭的瞬间调用该方法.比如关闭打开GPS
+//        @Override
+//        public void onProviderDisabled(String provider) {
+//
+//        }
+//
+//    }
 
 
     private void showLocation(Location location) {

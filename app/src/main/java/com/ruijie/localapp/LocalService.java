@@ -29,13 +29,13 @@ public class LocalService extends Service {
         public void run() {
             setNetworkLocation();
 
-            handler.postDelayed(this, UPDATE_FREQ);// 50ms后执行this，即runable
+            handler.postDelayed(this, LocationBean.UPDATE_FREQ);// 50ms后执行this，即runable
         }
     };
     private Random random =new Random();
 
-    private static Integer UPDATE_FREQ = 350;
-    private static Double MOVE_STEP = 0.00001;
+//    private static Integer UPDATE_FREQ = 350;
+//    private static Double MOVE_STEP = 0.00001;
     private LocationBean locationBeanNow;//当前坐标
     private List<LocationBean> locationBeanList = new ArrayList<LocationBean>();//要移动的坐标
     private Integer gotoLocationTag;
@@ -78,7 +78,7 @@ public class LocalService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand方法被调用");
-        handler.postDelayed(runnable, UPDATE_FREQ);// 打开定时器，执行runnable操作
+        handler.postDelayed(runnable, LocationBean.UPDATE_FREQ);// 打开定时器，执行runnable操作
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -145,19 +145,19 @@ public class LocalService extends Service {
                 ,locationBeanNow.getLongitudeReal(),locationBeanNow.getAltitudeReal());
 
         if(gotoLocation.getLongitude() > locationBeanNow.getLongitude()){
-            locationBeanNow.setLongitude(locationBeanNow.getLongitude() + MOVE_STEP*cos + a1);
+            locationBeanNow.setLongitude(locationBeanNow.getLongitude() + LocationBean.MOVE_STEP*cos + a1);
         }else{
-            locationBeanNow.setLongitude(locationBeanNow.getLongitude() - MOVE_STEP*cos - a1);
+            locationBeanNow.setLongitude(locationBeanNow.getLongitude() - LocationBean.MOVE_STEP*cos - a1);
         }
 
         if(gotoLocation.getAltitude() > locationBeanNow.getAltitude()){
-            locationBeanNow.setAltitude(locationBeanNow.getAltitude() + MOVE_STEP*sin + a2);
+            locationBeanNow.setAltitude(locationBeanNow.getAltitude() + LocationBean.MOVE_STEP*sin + a2);
         }else{
-            locationBeanNow.setAltitude(locationBeanNow.getAltitude() - MOVE_STEP*sin - a2);
+            locationBeanNow.setAltitude(locationBeanNow.getAltitude() - LocationBean.MOVE_STEP*sin - a2);
         }
 
-        if (Math.abs(gotoLocation.getLongitude()-locationBeanNow.getLongitude()) < 5*MOVE_STEP
-                && Math.abs(gotoLocation.getAltitude() - locationBeanNow.getAltitude())< 5*MOVE_STEP){
+        if (Math.abs(gotoLocation.getLongitude()-locationBeanNow.getLongitude()) < 5*LocationBean.MOVE_STEP
+                && Math.abs(gotoLocation.getAltitude() - locationBeanNow.getAltitude())< 5*LocationBean.MOVE_STEP){
             gotoLocationTag++;
             if(gotoLocationTag >= locationBeanList.size()){
                 gotoLocationTag = 0;

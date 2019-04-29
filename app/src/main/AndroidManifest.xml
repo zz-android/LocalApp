@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" tools:ignore="MockLocation"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +33,7 @@
                 <action android:name="com.ruijie.localapp.AuthService"/>
             </intent-filter>
         </service>
+        <service android:name=".dialog.FloatingImageDisplayService"></service>
     </application>
 
 </manifest>

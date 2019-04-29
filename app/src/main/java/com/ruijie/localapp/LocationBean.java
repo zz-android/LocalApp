@@ -3,9 +3,12 @@ package com.ruijie.localapp;
 import java.util.Random;
 
 public class LocationBean {
+    public static Integer UPDATE_FREQ = 350;
+    public static Double MOVE_STEP = 0.00001;
 
     public static Double staticLongitude = 0.0;
-    public static Double staticAltitude = 0.0;;
+    public static Double staticAltitude = 0.0;
+    public static boolean MOVEING = true;
 
     private Double longitude;
     private Double altitude;
