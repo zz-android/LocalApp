@@ -55,11 +55,12 @@ public class LocalService extends Service {
 //        locationBeanList.add(new LocationBean(119.35139,26.04160));//花海雷凌子
 //        locationBeanList.add(new LocationBean(119.347830,26.04445));//花海中途
 //        locationBeanList.add(new LocationBean(119.34309,26.04650));//花海2
-
-        locationBeanList.add(new LocationBean(119.29540,26.08623));//三方
+        locationBeanList.add(new LocationBean(119.29410,26.08842));//三方
+        locationBeanList.add(new LocationBean(119.29150,26.08582));//三方
+        locationBeanList.add(new LocationBean(119.29480,26.08623));//三方
         locationBeanList.add(new LocationBean(119.29040,26.08472));//三方
         locationBeanList.add(new LocationBean(119.29040,26.08872));//三方
-        locationBeanList.add(new LocationBean(119.29460,26.08872));//三方
+
 
 //        locationBeanList.add(new LocationBean(119.30270,26.03283));
 //        LocationBean.staticLongitude = locationBeanList.get(0).getLongitude();
