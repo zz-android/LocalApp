@@ -56,9 +56,19 @@ public class LocationActivity extends Activity {
         });
 
         locationBeanList.add(new LocationBean(119.26404,26.04180,"仓山万达"));
-        locationBeanList.add(new LocationBean(119.34290,26.02215,"吉若"));
+        locationBeanList.add(new LocationBean(119.3128,26.1093,"电建二公司"));
+        locationBeanList.add(new LocationBean(119.3246,26.1397,"五四北泰和"));
+        locationBeanList.add(new LocationBean(119.3049,26.0583,"中亭街文化宫"));
+
+        locationBeanList.add(new LocationBean(119.2881,26.0861,"八闽大厦"));
         locationBeanList.add(new LocationBean(119.2959,26.0894,"coco1"));
         locationBeanList.add(new LocationBean(119.2912,26.0879,"coco2"));
+        locationBeanList.add(new LocationBean(119.3005,26.0863,"闽辉大厦"));
+        locationBeanList.add(new LocationBean(119.3028,26.0927,"华闽大厦"));
+
+
+
+        locationBeanList.add(new LocationBean(119.34290,26.02215,"吉若"));
 
         locationBeanList.add(new LocationBean(119.35139,26.04160,"花海雷"));
         locationBeanList.add(new LocationBean(119.34389,26.04670,"花海木"));
