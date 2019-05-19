@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ruijie.localapp.LocationActivity;
 import com.ruijie.localapp.LocationBean;
 import com.ruijie.localapp.R;
 
@@ -40,7 +41,8 @@ public class FloatingImageDisplayService extends Service {
     private WindowManager.LayoutParams layoutParams;
 
     private View displayView;
-    private Button startOrMoveBtn,goNorthBtn,goEastBtn,goSouthBtn,goWestBtn;
+    private Button startOrMoveBtn,goNorthBtn,goEastBtn,goSouthBtn,goWestBtn,lastBtn,nextBtn;
+    private TextView addressTV;
     private TextView longTV,latTV,infoTV;
 
 //    private boolean goEast = false;
@@ -68,7 +70,7 @@ public class FloatingImageDisplayService extends Service {
         layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         layoutParams.width = 340;
-        layoutParams.height = 230;
+        layoutParams.height = 340;
         layoutParams.x = 300;
         layoutParams.y = 300;
 
@@ -104,11 +106,14 @@ public class FloatingImageDisplayService extends Service {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         displayView = layoutInflater.inflate(R.layout.image_display, null);
         displayView.setOnTouchListener(new FloatingOnTouchListener());
+        lastBtn = displayView.findViewById(R.id.lastBtn);
+        nextBtn = displayView.findViewById(R.id.nextBtn);
         startOrMoveBtn = displayView.findViewById(R.id.startOrMoveBtn);
         goNorthBtn = displayView.findViewById(R.id.goNorthBtn);
         goEastBtn = displayView.findViewById(R.id.goEastBtn);
         goSouthBtn = displayView.findViewById(R.id.goSouthBtn);
         goWestBtn = displayView.findViewById(R.id.goWestBtn);
+        addressTV = displayView.findViewById(R.id.addressTV);
         longTV = displayView.findViewById(R.id.longTV);
         latTV = displayView.findViewById(R.id.latTV);
         infoTV = displayView.findViewById(R.id.infoTV);
@@ -116,22 +121,104 @@ public class FloatingImageDisplayService extends Service {
         windowManager.addView(displayView, layoutParams);
         changeImageHandler.sendEmptyMessageDelayed(0, 1000);
 
+        lastBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(LocationActivity.nowlocation > 0){
+                    LocationActivity.nowlocation--;
+                    LocationBean bean = LocationActivity.locationBeanList.get(LocationActivity.nowlocation);
+
+                    if(LocationActivity.TAG > 0){
+                        while (bean.getTag() != LocationActivity.TAG){
+                            LocationActivity.nowlocation--;
+                            if(LocationActivity.nowlocation < 0){
+                                LocationActivity.nowlocation++;
+                                break;
+                            }
+                            bean = LocationActivity.locationBeanList.get(LocationActivity.nowlocation);
+                        }
+                    }
+
+
+                    double longitude = bean.getLongitudeReal();
+                    double altitude = bean.getAltitudeReal();
+                    LocationBean.staticLongitude = longitude;
+                    LocationBean.staticAltitude = altitude;
+                    //addressTV.setText(bean.getRemark()+"");
+                    westEast = 0;
+                    southNorth = 0;
+                    startOrMoveBtn.setText("移");
+                }
+
+            }
+        });
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(LocationActivity.nowlocation < LocationActivity.locationBeanList.size()){
+                    LocationActivity.nowlocation++;
+                    LocationBean bean = LocationActivity.locationBeanList.get(LocationActivity.nowlocation);
+
+                    if(LocationActivity.TAG > 0){
+                        while (bean.getTag() != LocationActivity.TAG){
+                            LocationActivity.nowlocation++;
+                            if(LocationActivity.nowlocation+1 >= LocationActivity.locationBeanList.size()){
+                                LocationActivity.nowlocation = LocationActivity.locationBeanList.size()-1;
+                                break;
+                            }
+                            bean = LocationActivity.locationBeanList.get(LocationActivity.nowlocation);
+                        }
+                    }
+
+
+                    double longitude = bean.getLongitudeReal();
+                    double altitude = bean.getAltitudeReal();
+                    LocationBean.staticLongitude = longitude;
+                    LocationBean.staticAltitude = altitude;
+                    //addressTV.setText(bean.getRemark()+"");
+                    westEast = 0;
+                    southNorth = 0;
+                    startOrMoveBtn.setText("移");
+                }
+            }
+        });
+
+        addressTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                westEast = 0;
+                southNorth = 0;
+            }
+        });
         startOrMoveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("test", "startOrMoveBtn 点击事件");
-                LocationBean.MOVEING = false;
-                westEast = 0;
-                southNorth = 0;
+                LocationBean.MOVEING = !LocationBean.MOVEING;
+                if(LocationBean.MOVEING){
+                    startOrMoveBtn.setText("停");
+                }else{
+                    startOrMoveBtn.setText("移");
+                }
+//                westEast = 0;
+//                southNorth = 0;
             }
         });
         goNorthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LocationBean.MOVEING = true;
+//                if(southNorth<0){
+//                    southNorth = 0;
+//                }
                 if(southNorth < 10){
                     southNorth++;
+                    LocationBean.MOVEING = true;
+                    startOrMoveBtn.setText("停");
                 }
+
+
+
 
             }
         });
@@ -139,8 +226,13 @@ public class FloatingImageDisplayService extends Service {
             @Override
             public void onClick(View v) {
                 LocationBean.MOVEING = true;
+//                if(southNorth>0){
+//                    southNorth = 0;
+//                }
                 if(southNorth > -10){
                     southNorth--;
+                    LocationBean.MOVEING = true;
+                    startOrMoveBtn.setText("停");
                 }
 
             }
@@ -149,8 +241,13 @@ public class FloatingImageDisplayService extends Service {
             @Override
             public void onClick(View v) {
                 LocationBean.MOVEING = true;
+//                if(westEast<0){
+//                    westEast = 0;
+//                }
                 if(westEast < 10){
                     westEast++;
+                    LocationBean.MOVEING = true;
+                    startOrMoveBtn.setText("停");
                 }
             }
         });
@@ -158,8 +255,13 @@ public class FloatingImageDisplayService extends Service {
             @Override
             public void onClick(View v) {
                 LocationBean.MOVEING = true;
+//                if(westEast>0){
+//                    westEast = 0;
+//                }
                 if(westEast > -10){
                     westEast--;
+                    LocationBean.MOVEING = true;
+                    startOrMoveBtn.setText("停");
                 }
             }
         });
@@ -169,19 +271,16 @@ public class FloatingImageDisplayService extends Service {
         @Override
         public boolean handleMessage(Message msg) {
             if (msg.what == 0) {
-                if(southNorth != 0){
+                if(southNorth != 0 && LocationBean.MOVEING){
                     LocationBean.staticAltitude += LocationBean.MOVE_STEP*southNorth/2;
                 }
-//                if(southNorth < 0){
-//                    LocationBean.staticAltitude -= LocationBean.MOVE_STEP*southNorth/2;
-//                }
-                if(westEast != 0){
+
+                if(westEast != 0 && LocationBean.MOVEING){
                     LocationBean.staticLongitude += LocationBean.MOVE_STEP*westEast/2;
                 }
-//                if(westEast < 0){
-//                    LocationBean.staticLongitude -= LocationBean.MOVE_STEP*westEast/2;
-//                }
+
                 infoTV.setText(westEast + " " +southNorth);
+                addressTV.setText(LocationActivity.locationBeanList.get(LocationActivity.nowlocation).getRemark()+"");
                 changeImageHandler.sendEmptyMessageDelayed(0, LocationBean.UPDATE_FREQ);
 
             }

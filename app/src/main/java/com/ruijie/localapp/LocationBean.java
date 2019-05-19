@@ -13,6 +13,7 @@ public class LocationBean {
     private Double longitude;
     private Double altitude;
     private String remark;
+    private Integer tag = 0;
 
     public LocationBean() {
     }
@@ -26,8 +27,14 @@ public class LocationBean {
         this.longitude = longitude;
         this.altitude = altitude;
         this.remark = remark;
+        this.tag = 0;
     }
-
+    public LocationBean(Double longitude, Double altitude, String remark,Integer tag) {
+        this.longitude = longitude;
+        this.altitude = altitude;
+        this.remark = remark;
+        this.tag = tag;
+    }
     public Double getLongitudeReal() {
         return longitude;
     }
@@ -64,6 +71,14 @@ public class LocationBean {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Integer getTag() {
+        return tag;
+    }
+
+    public void setTag(Integer tag) {
+        this.tag = tag;
     }
 
     private Random random =new Random();

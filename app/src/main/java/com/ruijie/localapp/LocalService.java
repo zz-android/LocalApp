@@ -51,20 +51,24 @@ public class LocalService extends Service {
     public void onCreate() {
         Log.e(TAG, "onCreate方法被调用");
 
-//        locationBeanList.add(new LocationBean(119.35139,26.04360));//花海
-//        locationBeanList.add(new LocationBean(119.35139,26.04160));//花海雷凌子
-//        locationBeanList.add(new LocationBean(119.347830,26.04445));//花海中途
-//        locationBeanList.add(new LocationBean(119.34309,26.04650));//花海2
         locationBeanList.add(new LocationBean(119.29410,26.08842));//三方
         locationBeanList.add(new LocationBean(119.29150,26.08582));//三方
         locationBeanList.add(new LocationBean(119.29480,26.08623));//三方
+
+        locationBeanList.add(new LocationBean(119.2931,26.0855));
+        locationBeanList.add(new LocationBean(119.2943,26.0848));
+        locationBeanList.add(new LocationBean(119.2950,26.0839));
+        locationBeanList.add(new LocationBean(119.2926,26.0835));
+        locationBeanList.add(new LocationBean(119.2921,26.0850));
+
+        locationBeanList.add(new LocationBean(119.2903,26.0845));
+        locationBeanList.add(new LocationBean(119.2887,26.0843));
+        locationBeanList.add(new LocationBean(119.2883,26.0863));
+        locationBeanList.add(new LocationBean(119.2896,26.0867));
+
         locationBeanList.add(new LocationBean(119.29040,26.08472));//三方
         locationBeanList.add(new LocationBean(119.29040,26.08872));//三方
 
-
-//        locationBeanList.add(new LocationBean(119.30270,26.03283));
-//        LocationBean.staticLongitude = locationBeanList.get(0).getLongitude();
-//        LocationBean.staticAltitude = locationBeanList.get(0).getAltitude();
 
         locationBeanNow = new LocationBean(locationBeanList.get(0).getLongitude(),locationBeanList.get(0).getAltitude());
         gotoLocationTag = 0;
@@ -88,10 +92,6 @@ public class LocalService extends Service {
     public void onDestroy() {
         Log.e(TAG, "onDestroy方法被调用");
 
-//        if(localServiceThread != null) {
-//            localServiceThread.interrupt();
-//            localServiceThread = null;
-//        }
         handler.removeCallbacks(runnable);
         rmNetworkProvider();
         super.onDestroy();

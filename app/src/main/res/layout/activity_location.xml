@@ -25,9 +25,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="速度(毫秒/米):"
+                    android:text="速度:"
                     />
                 <EditText
+                    android:id="@+id/speedET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -42,9 +43,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="移动距离(米):"
+                    android:text="TAG:"
                     />
                 <EditText
+                    android:id="@+id/tagET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -55,6 +57,7 @@
                 android:orientation="horizontal"
                 >
                 <Button
+                    android:id="@+id/setBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="设置"

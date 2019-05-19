@@ -75,7 +75,7 @@ public class LocationBeanAdapter extends BaseAdapter {
 
         info.longitudeTV.setText(longitude+"");
         info.altitudeTV.setText(altitude+"");
-        info.remarkTV.setText(data.get(position).getRemark());
+        info.remarkTV.setText(data.get(position).getTag()+" "+data.get(position).getRemark());
 
         return convertView;
     }

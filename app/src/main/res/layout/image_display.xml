@@ -11,6 +11,35 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         >
+        <Button
+            android:id="@+id/lastBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="l"
+            />
+        <TextView
+            android:id="@+id/addressTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:textColor="#000000"
+            />
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="n"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -21,15 +50,17 @@
                 android:id="@+id/longTV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="111.22222"
+                android:text="11.22222"
                 android:textSize="8dp"
+                android:textColor="#000000"
                 />
             <TextView
                 android:id="@+id/latTV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="111.22222"
+                android:text="11.22222"
                 android:textSize="8dp"
+                android:textColor="#000000"
                 />
             <TextView
                 android:id="@+id/infoTV"
@@ -37,6 +68,7 @@
                 android:layout_height="match_parent"
                 android:text="z"
                 android:textSize="8dp"
+                android:textColor="#000000"
                 />
         </LinearLayout>
         <Button
