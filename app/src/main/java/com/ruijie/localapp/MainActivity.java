@@ -45,21 +45,18 @@ public class MainActivity extends Activity {
 
         initLocationManager(mContext);
 
-        serviceIntent = new Intent();
+        Intent serviceIntent = new Intent();
         serviceIntent.setAction("com.ruijie.localapp.LocalService");
         //Android 5.0之后，隐式调用是除了设置setAction()外，还需要设置setPackage()
         serviceIntent.setPackage("com.ruijie.localapp");
         startService(serviceIntent);
 
-        serviceIntentAuth = new Intent(this,AuthService.class);
-        startService(serviceIntentAuth);
+//        serviceIntentAuth = new Intent(this,AuthService.class);
+//        startService(serviceIntentAuth);
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (mLocationManager!=null) {
-//            mLocationManager.removeUpdates(mLocationListenerImpl);
-//        }
     }
 
     public void getLocationClick(View v){

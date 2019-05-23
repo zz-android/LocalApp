@@ -139,15 +139,21 @@ public class FloatingImageDisplayService extends Service {
                         }
                     }
 
-
-                    double longitude = bean.getLongitudeReal();
-                    double altitude = bean.getAltitudeReal();
-                    LocationBean.staticLongitude = longitude;
-                    LocationBean.staticAltitude = altitude;
-                    //addressTV.setText(bean.getRemark()+"");
+                    if(!LocationActivity.locationBeanList.get(LocationActivity.nowlocation).getMoveGo()) {
+                        double longitude = bean.getLongitudeReal();
+                        double altitude = bean.getAltitudeReal();
+                        LocationBean.staticLongitude = longitude;
+                        LocationBean.staticAltitude = altitude;
+                        //addressTV.setText(bean.getRemark()+"");
+                        startOrMoveBtn.setText("移");
+                    }else{
+                        LocationBean.MOVEING = true;
+                        startOrMoveBtn.setText("停");
+                        MoveGoThread moveGoThread = new MoveGoThread(bean.getLongitudeReal(),bean.getAltitudeReal());
+                        moveGoThread.start();
+                    }
                     westEast = 0;
                     southNorth = 0;
-                    startOrMoveBtn.setText("移");
                 }
 
             }
@@ -170,15 +176,22 @@ public class FloatingImageDisplayService extends Service {
                         }
                     }
 
-
-                    double longitude = bean.getLongitudeReal();
-                    double altitude = bean.getAltitudeReal();
-                    LocationBean.staticLongitude = longitude;
-                    LocationBean.staticAltitude = altitude;
-                    //addressTV.setText(bean.getRemark()+"");
+                    if(!LocationActivity.locationBeanList.get(LocationActivity.nowlocation).getMoveGo()){
+                        double longitude = bean.getLongitudeReal();
+                        double altitude = bean.getAltitudeReal();
+                        LocationBean.staticLongitude = longitude;
+                        LocationBean.staticAltitude = altitude;
+                        //addressTV.setText(bean.getRemark()+"");
+                        startOrMoveBtn.setText("移");
+                    }else{
+                        LocationBean.MOVEING = true;
+                        startOrMoveBtn.setText("停");
+                        MoveGoThread moveGoThread = new MoveGoThread(bean.getLongitudeReal(),bean.getAltitudeReal());
+                        moveGoThread.start();
+                    }
                     westEast = 0;
                     southNorth = 0;
-                    startOrMoveBtn.setText("移");
+
                 }
             }
         });
@@ -349,5 +362,70 @@ public class FloatingImageDisplayService extends Service {
 
         }
 
+    }
+    class MoveGoThread extends Thread{
+        private double lon;
+        private double lat;
+        public MoveGoThread(double lon,double lat){
+            this.lon = lon;
+            this.lat = lat;
+
+        }
+        @Override
+        public void run(){
+
+            while (true){
+                if (Math.abs(LocationBean.staticLongitude-lon) <= 2*LocationBean.MOVE_STEP
+                        && Math.abs(LocationBean.staticAltitude - lat)<= 2*LocationBean.MOVE_STEP){
+                    LocationBean.MOVEING = false;
+                }
+                if(!LocationBean.MOVEING ){
+                    break;
+                }
+
+                double sin = getSin(LocationBean.staticLongitude,LocationBean.staticAltitude
+                        ,lon,lat);
+                double cos = getCos(LocationBean.staticLongitude,LocationBean.staticAltitude
+                        ,lon,lat);
+
+                if(lon > LocationBean.staticLongitude){
+                    LocationBean.staticLongitude = LocationBean.staticLongitude + LocationBean.MOVE_STEP*cos;
+                }else{
+                    LocationBean.staticLongitude = LocationBean.staticLongitude - LocationBean.MOVE_STEP*cos;
+                }
+
+                if(lat > LocationBean.staticAltitude){
+                    LocationBean.staticAltitude = LocationBean.staticAltitude + LocationBean.MOVE_STEP*sin;
+                }else{
+                    LocationBean.staticAltitude = LocationBean.staticAltitude - LocationBean.MOVE_STEP*sin;
+                }
+                try{
+                    //Thread.sleep(LocationBean.UPDATE_FREQ);
+                    Thread.sleep(100);
+                }catch (Exception e){
+
+                }
+
+            }
+
+        }
+
+        private double getSin(double x1,double y1,double x2,double y2){
+            double sin = 0.0;
+            double distance = Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+            if(distance>0){
+                sin = Math.abs((y2-y1)/distance);
+            }
+            return sin;
+        }
+
+        private double getCos(double x1,double y1,double x2,double y2){
+            double cos = 1.0;
+            double distance = Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+            if(distance>0){
+                cos = Math.abs((x2-x1)/distance);
+            }
+            return cos;
+        }
     }
 }

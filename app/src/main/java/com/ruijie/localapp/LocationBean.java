@@ -14,6 +14,7 @@ public class LocationBean {
     private Double altitude;
     private String remark;
     private Integer tag = 0;
+    private boolean moveGo = false;
 
     public LocationBean() {
     }
@@ -34,6 +35,13 @@ public class LocationBean {
         this.altitude = altitude;
         this.remark = remark;
         this.tag = tag;
+    }
+    public LocationBean(Double longitude, Double altitude, String remark,Integer tag,boolean moveGo) {
+        this.longitude = longitude;
+        this.altitude = altitude;
+        this.remark = remark;
+        this.tag = tag;
+        this.moveGo = moveGo;
     }
     public Double getLongitudeReal() {
         return longitude;
@@ -86,5 +94,13 @@ public class LocationBean {
         int r1 = random.nextInt(999999999);
         double a1 = r1/100000000000000.0;
         return a1;
+    }
+
+    public boolean getMoveGo() {
+        return moveGo;
+    }
+
+    public void setMoveGo(boolean moveGo) {
+        this.moveGo = moveGo;
     }
 }

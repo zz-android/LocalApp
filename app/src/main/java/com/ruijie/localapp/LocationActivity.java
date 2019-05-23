@@ -79,25 +79,67 @@ public class LocationActivity extends Activity {
             }
         });
 
-        locationBeanList.add(new LocationBean(119.26404,26.04180,"仓山万达"));
-        locationBeanList.add(new LocationBean(119.3068,26.1126,"电建二公司"));
-        locationBeanList.add(new LocationBean(119.3196,26.1434,"五四北泰和"));
-
+        locationBeanList.add(new LocationBean(119.1851,26.0545,"福公寓43",3,true));
+        locationBeanList.add(new LocationBean(119.1857,26.0537,"福公寓41",2,true));
+        locationBeanList.add(new LocationBean(119.1876,26.0539,"福公寓31",2,true));
+        locationBeanList.add(new LocationBean(119.1884,26.0549,"福公寓25",1,true));
+        locationBeanList.add(new LocationBean(119.1898,26.0547,"福操场西北",3,true));
+        locationBeanList.add(new LocationBean(119.1901,26.0534,"福操场西南",2,true));
+        locationBeanList.add(new LocationBean(119.1914,26.0532,"福操场东南",1,true));
+        locationBeanList.add(new LocationBean(119.1915,26.0547,"福操场东北",1,true));
+        locationBeanList.add(new LocationBean(119.1930,26.0562,"福行政南",1,true));
+        locationBeanList.add(new LocationBean(119.1933,26.0582,"福行政北",2,true));
+        locationBeanList.add(new LocationBean(119.1928,26.0591,"福行政2",1,true));
+        locationBeanList.add(new LocationBean(119.1923,26.0577,"福行政西北",1,true));
+        locationBeanList.add(new LocationBean(119.1916,26.0569,"福行政西",1,true));
+        locationBeanList.add(new LocationBean(119.1884,26.0568,"福公寓24",1,true));
+        locationBeanList.add(new LocationBean(119.1882,26.0576,"福公寓19",1,true));
+        locationBeanList.add(new LocationBean(119.1881,26.0597,"福京元餐厅",2,true));
+        locationBeanList.add(new LocationBean(119.1866,26.0609,"福公寓4",1,true));
+        //locationBeanList.add(new LocationBean(119.1843,26.0601,"福公寓57",3,true));
+        locationBeanList.add(new LocationBean(119.1850,26.0619,"福阿庆",1,true));
+        locationBeanList.add(new LocationBean(119.1850,26.0636,"江公寓23",2,true));
+        locationBeanList.add(new LocationBean(119.1829,26.0648,"江公寓11",1,true));
+        locationBeanList.add(new LocationBean(119.1863,26.0635,"江嘿店",2,true));
+        locationBeanList.add(new LocationBean(119.1879,26.0634,"福嘿店对面",3,true));
+        locationBeanList.add(new LocationBean(119.1876,26.0646,"福嘿店北",1,true));
+        locationBeanList.add(new LocationBean(119.1890,26.0648,"福建筑西2",1,true));
+        locationBeanList.add(new LocationBean(119.1904,26.0648,"福建筑西1",1,true));
+        locationBeanList.add(new LocationBean(119.1897,26.0664,"江教学4东南",1,true));
+        locationBeanList.add(new LocationBean(119.1905,26.0675,"江教学4东",1,true));
+        locationBeanList.add(new LocationBean(119.1887,26.0671,"江教学4西南",1,true));
+        locationBeanList.add(new LocationBean(119.1857,26.0690,"江公管",1,true));
+        locationBeanList.add(new LocationBean(119.1869,26.0704,"江长安路",1,true));
+        locationBeanList.add(new LocationBean(119.1862,26.0713,"医药学院",1,true));
+        locationBeanList.add(new LocationBean(119.1875,26.0722,"江东南门南",1,true));
+        locationBeanList.add(new LocationBean(119.1866,26.0728,"江东南门西",1,true));
+//        locationBeanList.add(new LocationBean(119.1827,26.0661,"江天天烤鱼1",3,true));
+//        locationBeanList.add(new LocationBean(119.1812,26.0665,"医天天烤鱼2",3,true));
+//        locationBeanList.add(new LocationBean(119.1792,26.0677,"医文印广告",3,true));
+//        locationBeanList.add(new LocationBean(119.1779,26.0696,"医文印北",3,true));
+//        locationBeanList.add(new LocationBean(119.1783,26.0700,"医文印北2",3,true));
         locationBeanList.add(new LocationBean(119.34290,26.02215,"吉若",3));
         locationBeanList.add(new LocationBean(119.3513,26.0425,"*花海1",2));
         locationBeanList.add(new LocationBean(119.34389,26.04670,"*花海2",2));
+        locationBeanList.add(new LocationBean(119.30550,26.03733,"*师大",1));
+        locationBeanList.add(new LocationBean(119.3011,26.03227,"*师大3",3));
+        locationBeanList.add(new LocationBean(119.4183,25.9944,"慈航",1));
+        locationBeanList.add(new LocationBean(119.2939,26.1530,"森林1",1));
+        locationBeanList.add(new LocationBean(119.2885,26.1521,"森林2",3));
+        locationBeanList.add(new LocationBean(119.3484,26.0394,"*观音"));
+        locationBeanList.add(new LocationBean(119.3516,26.0355,"*闽江世纪"));
+        locationBeanList.add(new LocationBean(119.3542,26.0408,"*蔚蓝"));
+        locationBeanList.add(new LocationBean(119.3567,26.0310,"*会展"));
+        locationBeanList.add(new LocationBean(119.3647,26.0263,"*规划"));
+        locationBeanList.add(new LocationBean(119.2957,26.1536,"*森林公园"));
+        locationBeanList.add(new LocationBean(119.3562,25.9802,"*书院"));
+        locationBeanList.add(new LocationBean(119.4689,25.9586,"*营前工业区"));
+        locationBeanList.add(new LocationBean(119.4186,25.9477,"*下洋"));
+        locationBeanList.add(new LocationBean(119.4133,25.9460,"*下洋2"));
+
+
         locationBeanList.add(new LocationBean(119.3431,26.0461,"花海2-2",2));
         locationBeanList.add(new LocationBean(119.34579,26.04472,"花海3",3));
-
-        locationBeanList.add(new LocationBean(119.1884,26.0568,"福大1",1));
-        locationBeanList.add(new LocationBean(119.1882,26.0576,"福大2",1));
-        locationBeanList.add(new LocationBean(119.1881,26.0597,"福大3",1));
-        locationBeanList.add(new LocationBean(119.1868,26.0634,"福大4",2));
-        locationBeanList.add(new LocationBean(119.1867,26.0643,"福大5",2));
-        locationBeanList.add(new LocationBean(119.1861,26.0659,"江1",3));
-        locationBeanList.add(new LocationBean(119.1864,26.0665,"江2",3));
-        locationBeanList.add(new LocationBean(119.1822,26.0689,"医科1",1));
-        locationBeanList.add(new LocationBean(119.1814,26.0703,"医科2",2));
 
 
         locationBeanList.add(new LocationBean(119.2945,26.0847,"三方1",3));
@@ -111,29 +153,14 @@ public class LocationActivity extends Activity {
         locationBeanList.add(new LocationBean(119.3031,26.0779,"五一2",1));
         locationBeanList.add(new LocationBean(119.3042,26.0779,"五一3",1));
 
-        locationBeanList.add(new LocationBean(119.30550,26.03733,"*师大",1));
-        locationBeanList.add(new LocationBean(119.30270,26.03283,"师大2",2));
-        locationBeanList.add(new LocationBean(119.3011,26.03227,"*师大3",3));
-        locationBeanList.add(new LocationBean(119.3031,26.0340,"师大4",3));
-        locationBeanList.add(new LocationBean(119.3033,26.0348,"师大5",3));
-        locationBeanList.add(new LocationBean(119.3021,26.0349,"师大6",3));
+
+
 
 
 
         locationBeanList.add(new LocationBean(119.2399,26.0859,"农大1",1));
-        locationBeanList.add(new LocationBean(119.2418,26.0847,"生物",2));
-        locationBeanList.add(new LocationBean(119.2398,26.0934,"经管",1));
-        locationBeanList.add(new LocationBean(119.2386,26.0934,"行政",2));
-        locationBeanList.add(new LocationBean(119.2400,26.0892,"农大2",3));
-        locationBeanList.add(new LocationBean(119.2374,26.0908,"农大3",1));
-        locationBeanList.add(new LocationBean(119.2319,26.0850,"农大4",1));
-        locationBeanList.add(new LocationBean(119.2311,26.0842,"农大5",3));
-        locationBeanList.add(new LocationBean(119.2297,26.0842,"农大6",3));
-        locationBeanList.add(new LocationBean(119.2277,26.0876,"农大7",3));
-        locationBeanList.add(new LocationBean(119.2277,26.0888,"农大8",1));
-        locationBeanList.add(new LocationBean(119.4183,25.9944,"慈航",1));
-        locationBeanList.add(new LocationBean(119.2939,26.1530,"森林1",1));
-        locationBeanList.add(new LocationBean(119.2885,26.1521,"森林2",3));
+
+
 
 
         locationBeanList.add(new LocationBean(119.29410,26.08842,"东百",4));
@@ -156,13 +183,8 @@ public class LocationActivity extends Activity {
         locationBeanList.add(new LocationBean(119.58540,26.67444,"宁德"));
         locationBeanList.add(new LocationBean(119.12509,25.32325,"莆田"));
 
-        
-        locationBeanList.add(new LocationBean(119.3647,26.0263,"*规划"));
-        locationBeanList.add(new LocationBean(119.2957,26.1536,"*森林公园"));
-        locationBeanList.add(new LocationBean(119.3547,25.9800,"*书院"));
-        locationBeanList.add(new LocationBean(119.4689,25.9586,"*营前工业区"));
-        locationBeanList.add(new LocationBean(119.4186,25.9477,"*下洋"));
-        locationBeanList.add(new LocationBean(119.4133,25.9460,"*下洋2"));
+
+
 
 
         locationBeanList.add(new LocationBean(120.14879,30.25769,"杭州"));
@@ -176,8 +198,15 @@ public class LocationActivity extends Activity {
         locationBeanList.add(new LocationBean(119.2912,26.0879,"coco2"));
         locationBeanList.add(new LocationBean(119.2996,26.0904,"井大"));
 
+        locationBeanList.add(new LocationBean(119.26404,26.04180,"仓山万达"));
+        locationBeanList.add(new LocationBean(119.3068,26.1126,"电建二公司"));
+        locationBeanList.add(new LocationBean(119.3196,26.1434,"五四北泰和"));
+
 
         locationBeanAdapter.notifyDataSetChanged();
+        if (!FloatingImageDisplayService.isStarted) {
+            startService(new Intent(mContext, FloatingImageDisplayService.class));
+        }
 
     }
 
@@ -196,6 +225,8 @@ public class LocationActivity extends Activity {
 //            LocationBean.staticLongitude = 119.29542;
 //            LocationBean.staticAltitude = 26.08603;
 //        }
+
+
         startService(new Intent(mContext, FloatingImageDisplayService.class));
     }
 }
